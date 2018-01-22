@@ -1,0 +1,12 @@
+{
+    "name": "jamesckemp/sm-app",
+    "authors": [
+        {
+            "name": "James Kemp",
+            "email": "me@jckemp.com"
+        }
+    ],
+    "require": {
+        "automattic/woocommerce": "^2.0"
+    }
+}

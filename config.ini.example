@@ -1,0 +1,4 @@
+[database]
+username = username
+password = password
+dbname = database_name
