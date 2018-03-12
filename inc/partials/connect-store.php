@@ -24,7 +24,7 @@
 	<p>Please connect your WooCommerce store.</p>
 </div>
 
-<form action="http://sm-app.local/connect.php" method="post">
+<form action="http://iconic-app.local/connect.php" method="post">
 	<div class="form-group">
 		<label for="store_url">Store URL</label>
 		<input type="url" class="form-control" id="store_url" name="store_url" placeholder="E.g. https://example.com/">

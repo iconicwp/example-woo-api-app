@@ -6,7 +6,7 @@
  * @return string
  */
 function jck_get_app_url() {
-	return 'https://sm-app.local';
+	return 'https://iconic-app.local';
 }
 
 /**
@@ -130,8 +130,8 @@ function jck_add_auth_params( $url ) {
 		'app_name'     => 'WooCommerce App',
 		'scope'        => 'read_write', // 'read', 'write', 'read_write'
 		'user_id'      => jck_get_user_id(), // Local user ID
-		'return_url'   => 'https://sm-app.local/',
-		'callback_url' => 'https://sm-app.local/callback.php', // Must be https
+		'return_url'   => 'https://iconic-app.local/',
+		'callback_url' => 'https://iconic-app.local/callback.php', // Must be https
 	);
 
 	/**
