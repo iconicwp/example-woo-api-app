@@ -29,6 +29,6 @@
 		<label for="store_url">Store URL</label>
 		<input type="url" class="form-control" id="store_url" name="store_url" placeholder="E.g. https://example.com/">
 	</div>
-	<input type="hidden" name="token" value="<?php echo iconic_generate_form_token( 'jck-connect' ); ?>">
-	<button type="submit" class="btn btn-default" name="jck-connect">Connect</button>
+	<input type="hidden" name="token" value="<?php echo iconic_generate_form_token( 'iconic-connect' ); ?>">
+	<button type="submit" class="btn btn-default" name="iconic-connect">Connect</button>
 </form>

@@ -2,7 +2,7 @@
 
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/inc/setup.php' );
 
-if ( ! iconic_verify_form_token( 'jck-connect' ) ) {
+if ( ! iconic_verify_form_token( 'iconic-connect' ) ) {
 	iconic_add_notice( 'Could not verify form token.' );
 	header( "Location: " . iconic_get_app_url() );
 	die();
