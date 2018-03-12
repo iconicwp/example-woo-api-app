@@ -38,7 +38,7 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<?php foreach ( jck_get_nav_items() as $url => $label ) { ?>
+					<?php foreach ( iconic_get_nav_items() as $url => $label ) { ?>
 						<li><a href="<?php echo $url; ?>"><?php echo $label; ?></a></li>
 					<?php } ?>
 				</ul>

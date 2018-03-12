@@ -5,7 +5,7 @@
  *
  * @return mysqli|string
  */
-function jck_db_connect() {
+function iconic_db_connect() {
 	// Define connection as a static variable, to avoid connecting more than once
 	static $connection;
 
@@ -32,9 +32,9 @@ function jck_db_connect() {
  *
  * @return bool|mysqli_result
  */
-function jck_db_query( $query ) {
+function iconic_db_query( $query ) {
 	// Connect to the database
-	$connection = jck_db_connect();
+	$connection = iconic_db_connect();
 
 	// Query the database
 	$result = mysqli_query( $connection, $query );
@@ -47,8 +47,8 @@ function jck_db_query( $query ) {
  *
  * @return string
  */
-function jck_db_error() {
-	$connection = jck_db_connect();
+function iconic_db_error() {
+	$connection = iconic_db_connect();
 
 	return mysqli_error( $connection );
 }
@@ -60,8 +60,8 @@ function jck_db_error() {
  *
  * @return string
  */
-function jck_db_escape( $value ) {
-	$connection = jck_db_connect();
+function iconic_db_escape( $value ) {
+	$connection = iconic_db_connect();
 
 	return mysqli_real_escape_string( $connection, $value );
 }
@@ -75,12 +75,12 @@ function jck_db_escape( $value ) {
  *
  * @return bool
  */
-function jck_db_insert_user_keys( $user_id, $consumer_key, $consumer_secret ) {
+function iconic_db_insert_user_keys( $user_id, $consumer_key, $consumer_secret ) {
 	if ( empty( $user_id ) ) {
 		return false;
 	}
 
-	$result = jck_db_query( sprintf(
+	$result = iconic_db_query( sprintf(
 		'
 		INSERT INTO `keys` ( `user_id`, `consumer_key`, `consumer_secret` ) 
 		VALUES ( "%d", "%2$s", "%3$s" )
@@ -88,8 +88,8 @@ function jck_db_insert_user_keys( $user_id, $consumer_key, $consumer_secret ) {
 		`consumer_key` = "%2$s", `consumer_secret` = "%3$s"
 		',
 		$user_id,
-		jck_db_escape( $consumer_key ),
-		jck_db_escape( $consumer_secret )
+		iconic_db_escape( $consumer_key ),
+		iconic_db_escape( $consumer_secret )
 	) );
 
 	return $result;
@@ -102,10 +102,10 @@ function jck_db_insert_user_keys( $user_id, $consumer_key, $consumer_secret ) {
  *
  * @return bool|mysqli_result
  */
-function jck_db_insert_store_url( $url ) {
-	$user_id = jck_get_user_id();
+function iconic_db_insert_store_url( $url ) {
+	$user_id = iconic_get_user_id();
 
-	$result = jck_db_query( sprintf(
+	$result = iconic_db_query( sprintf(
 		'
 		INSERT INTO `keys` ( `user_id`, `store_url` ) 
 		VALUES ( "%d", "%2$s" )
@@ -113,7 +113,7 @@ function jck_db_insert_store_url( $url ) {
 		`store_url` = "%2$s"
 		',
 		$user_id,
-		jck_db_escape( $url )
+		iconic_db_escape( $url )
 	) );
 
 	return $result;
@@ -126,7 +126,7 @@ function jck_db_insert_store_url( $url ) {
  *
  * @return bool|array
  */
-function jck_db_get_user_keys( $user_id ) {
+function iconic_db_get_user_keys( $user_id ) {
 	if ( ! $user_id ) {
 		return false;
 	}
@@ -137,7 +137,7 @@ function jck_db_get_user_keys( $user_id ) {
 		return $keys[ $user_id ];
 	}
 
-	$result = jck_db_query( sprintf(
+	$result = iconic_db_query( sprintf(
 		'
 		SELECT consumer_key, consumer_secret, store_url FROM `keys`
 		WHERE `user_id` = "%d"
@@ -166,12 +166,12 @@ function jck_db_get_user_keys( $user_id ) {
  *
  * @return bool
  */
-function jck_db_delete_user_keys( $user_id ) {
+function iconic_db_delete_user_keys( $user_id ) {
 	if ( ! $user_id ) {
 		return false;
 	}
 
-	$result = jck_db_query( sprintf(
+	$result = iconic_db_query( sprintf(
 		'
 		DELETE FROM `keys`
 		WHERE `user_id` = "%d"

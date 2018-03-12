@@ -31,7 +31,7 @@ $user_id = (int) filter_var( $post_data->user_id, FILTER_SANITIZE_NUMBER_INT );
 $consumer_key = filter_var( $post_data->consumer_key, FILTER_SANITIZE_STRING );
 $consumer_secret = filter_var( $post_data->consumer_secret, FILTER_SANITIZE_STRING );
 
-$insert_user_keys = jck_db_insert_user_keys( $user_id, $consumer_key, $consumer_secret );
+$insert_user_keys = iconic_db_insert_user_keys( $user_id, $consumer_key, $consumer_secret );
 
 if ( ! $insert_user_keys ) {
 	http_response_code( 500 );

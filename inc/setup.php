@@ -11,4 +11,4 @@ require_once( $_SERVER['DOCUMENT_ROOT'] . '/inc/woocommerce.php' );
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/inc/actions.php' );
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/inc/notices.php' );
 
-jck_process_actions();
+iconic_process_actions();

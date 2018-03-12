@@ -6,33 +6,33 @@
  * @param string $notice
  * @param string $type
  */
-function jck_add_notice( $notice, $type = 'danger' ) {
-	$notices = isset( $_SESSION['jck_notices'] ) ? $_SESSION['jck_notices'] : array();
+function iconic_add_notice( $notice, $type = 'danger' ) {
+	$notices = isset( $_SESSION['iconic_notices'] ) ? $_SESSION['iconic_notices'] : array();
 
 	$notices[] = array(
 		'notice' => $notice,
 		'type'   => $type,
 	);
 
-	$_SESSION['jck_notices'] = $notices;
+	$_SESSION['iconic_notices'] = $notices;
 }
 
 /**
  * Delete all notices.
  */
-function jck_delete_notices() {
-	unset( $_SESSION['jck_notices'] );
+function iconic_delete_notices() {
+	unset( $_SESSION['iconic_notices'] );
 }
 
 /**
  * Display notices.
  */
-function jck_display_notices() {
-	if ( empty( $_SESSION['jck_notices'] ) ) {
+function iconic_display_notices() {
+	if ( empty( $_SESSION['iconic_notices'] ) ) {
 		return;
 	}
 
-	foreach( $_SESSION['jck_notices'] as $notice ) {
+	foreach( $_SESSION['iconic_notices'] as $notice ) {
 		?>
 		<div class="alert alert-<?php echo $notice['type']; ?>" role="alert">
 			<?php echo $notice['notice']; ?>
@@ -40,5 +40,5 @@ function jck_display_notices() {
 		<?php
 	}
 
-	jck_delete_notices();
+	iconic_delete_notices();
 }

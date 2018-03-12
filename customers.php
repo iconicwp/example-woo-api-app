@@ -4,9 +4,9 @@
 		<h1>Customers</h1>
 	</div>
 
-	<?php jck_display_notices(); ?>
+	<?php iconic_display_notices(); ?>
 
-	<?php $customers = jck_api_get_collection( 'customers', array(
+	<?php $customers = iconic_api_get_collection( 'customers', array(
 		'orderby' => 'id',
 	) ); ?>
 
@@ -34,7 +34,7 @@
 						<td><?php echo $customer->total_spent; ?></td>
 						<td>
 							<a href="/edit-customer.php?id=<?php echo $customer->id; ?>" class="btn btn-default">Edit</a>
-							<a href="<?php echo jck_get_current_url( array(
+							<a href="<?php echo iconic_get_current_url( array(
 								'action' => 'delete_collection_item',
 								'type' => 'customers',
 								'id' => $customer->id,
@@ -45,7 +45,7 @@
 			</tbody>
 		</table>
 
-		<?php jck_display_pagination_links( 'customers' ); ?>
+		<?php iconic_display_pagination_links( 'customers' ); ?>
 	<?php } else { ?>
 		<div class="alert alert-warning" role="alert">
 			<p>Sorry, no customers were found.</p>

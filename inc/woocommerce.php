@@ -8,14 +8,14 @@ use Automattic\WooCommerce\Client;
  *
  * @return \Automattic\WooCommerce\Client|bool
  */
-function jck_api_connect() {
+function iconic_api_connect() {
 	static $connection;
 
 	if ( isset( $connection ) ) {
 		return $connection;
 	}
 
-	$keys = jck_get_user_keys();
+	$keys = iconic_get_user_keys();
 
 	if ( ! $keys ) {
 		$connection = false;
@@ -45,15 +45,15 @@ function jck_api_connect() {
  *
  * @return mixed
  */
-function jck_api_get_collection( $type, $args = array() ) {
+function iconic_api_get_collection( $type, $args = array() ) {
 	if ( empty( $type ) ) {
 		return false;
 	}
 
 	static $result = array();
 
-	$args['page']     = isset( $args['page'] ) ? $args['page'] : jck_get_current_page();
-	$args['per_page'] = isset( $args['per_page'] ) ? $args['per_page'] : jck_get_current_per_page();
+	$args['page']     = isset( $args['page'] ) ? $args['page'] : iconic_get_current_page();
+	$args['per_page'] = isset( $args['per_page'] ) ? $args['per_page'] : iconic_get_current_per_page();
 
 	$key = sprintf( '%s-%s', $type, md5( serialize( $args ) ) );
 
@@ -61,7 +61,7 @@ function jck_api_get_collection( $type, $args = array() ) {
 		return $result[ $key ];
 	}
 
-	$connection = jck_api_connect();
+	$connection = iconic_api_connect();
 
 	if ( ! $connection ) {
 		$result[ $key ] = false;
@@ -73,7 +73,7 @@ function jck_api_get_collection( $type, $args = array() ) {
 		$result[ $key ] = $connection->get( $type, $args );
 	} catch ( HttpClientException $e ) {
 		$result[ $key ] = false;
-		jck_add_notice( $e->getMessage() );
+		iconic_add_notice( $e->getMessage() );
 	}
 
 	return $result[ $key ];
@@ -88,8 +88,8 @@ function jck_api_get_collection( $type, $args = array() ) {
  *
  * @return array|bool
  */
-function jck_api_update_collection_item( $type, $id, $args = array() ) {
-	$connection = jck_api_connect();
+function iconic_api_update_collection_item( $type, $id, $args = array() ) {
+	$connection = iconic_api_connect();
 
 	if ( ! $connection || empty( $id ) || empty( $type ) ) {
 		return false;
@@ -101,7 +101,7 @@ function jck_api_update_collection_item( $type, $id, $args = array() ) {
 		$result = $connection->put( $request, $args );
 	} catch ( HttpClientException $e ) {
 		$result = false;
-		jck_add_notice( $e->getMessage() );
+		iconic_add_notice( $e->getMessage() );
 	}
 
 	return $result;
@@ -116,8 +116,8 @@ function jck_api_update_collection_item( $type, $id, $args = array() ) {
  *
  * @return array|bool
  */
-function jck_api_get_collection_item( $type, $id, $args = array() ) {
-	$connection = jck_api_connect();
+function iconic_api_get_collection_item( $type, $id, $args = array() ) {
+	$connection = iconic_api_connect();
 
 	if ( ! $connection || empty( $id ) || empty( $type ) ) {
 		return false;
@@ -129,7 +129,7 @@ function jck_api_get_collection_item( $type, $id, $args = array() ) {
 		$result = $connection->get( $request, $args );
 	} catch ( HttpClientException $e ) {
 		$result = false;
-		jck_add_notice( $e->getMessage() );
+		iconic_add_notice( $e->getMessage() );
 	}
 
 	return $result;
@@ -144,8 +144,8 @@ function jck_api_get_collection_item( $type, $id, $args = array() ) {
  *
  * @return array|bool
  */
-function jck_api_delete_collection_item( $type, $id, $args = array() ) {
-	$connection = jck_api_connect();
+function iconic_api_delete_collection_item( $type, $id, $args = array() ) {
+	$connection = iconic_api_connect();
 
 	if ( ! $connection || empty( $id ) || empty( $type ) ) {
 		return false;
@@ -158,7 +158,7 @@ function jck_api_delete_collection_item( $type, $id, $args = array() ) {
 		$result = $connection->delete( $request, $args );
 	} catch ( HttpClientException $e ) {
 		$result = false;
-		jck_add_notice( $e->getMessage() );
+		iconic_add_notice( $e->getMessage() );
 	}
 
 	return $result;

@@ -4,9 +4,9 @@
 		<h1>Orders</h1>
 	</div>
 
-	<?php jck_display_notices(); ?>
+	<?php iconic_display_notices(); ?>
 
-	<?php $orders = jck_api_get_collection( 'orders' ); ?>
+	<?php $orders = iconic_api_get_collection( 'orders' ); ?>
 
 	<?php if ( ! empty( $orders ) ) { ?>
 		<table class="table">
@@ -24,19 +24,19 @@
 				<?php foreach( $orders as $order ) { ?>
 					<tr>
 						<th scope="row"><?php echo $order->id; ?></th>
-						<td><?php echo jck_get_status_badge( $order->status ); ?></td>
+						<td><?php echo iconic_get_status_badge( $order->status ); ?></td>
 						<td><?php echo $order->customer_id; ?></td>
 						<td><?php echo count( $order->line_items ); ?></td>
 						<td><?php echo $order->total; ?> <?php echo $order->currency; ?></td>
 						<td>
 							<?php if ( $order->status === 'completed' ) { ?>
-								<a href="<?php echo jck_get_current_url( array(
+								<a href="<?php echo iconic_get_current_url( array(
 									'action' => 'order_status',
 									'status' => 'processing',
 									'order_id' => $order->id,
 								) ); ?>" class="btn btn-default">Mark Processing</a>
 							<?php } else { ?>
-								<a href="<?php echo jck_get_current_url( array(
+								<a href="<?php echo iconic_get_current_url( array(
 									'action' => 'order_status',
 									'status' => 'completed',
 									'order_id' => $order->id,
@@ -48,7 +48,7 @@
 			</tbody>
 		</table>
 
-		<?php jck_display_pagination_links( 'orders' ); ?>
+		<?php iconic_display_pagination_links( 'orders' ); ?>
 	<?php } else { ?>
 		<div class="alert alert-warning" role="alert">
 			<p>Sorry, no orders were found.</p>

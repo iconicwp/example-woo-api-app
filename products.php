@@ -4,9 +4,9 @@
 		<h1>Products</h1>
 	</div>
 
-	<?php jck_display_notices(); ?>
+	<?php iconic_display_notices(); ?>
 
-	<?php $products = jck_api_get_collection( 'products' ); ?>
+	<?php $products = iconic_api_get_collection( 'products' ); ?>
 
 	<?php if ( ! empty( $products ) ) { ?>
 		<table class="table">
@@ -28,11 +28,11 @@
 						<td><?php echo $product->name; ?></td>
 						<td class="text-capitalize"><?php echo $product->type; ?></td>
 						<td><?php echo ! empty( $product->price_html ) ? $product->price_html : "&mdash;"; ?></td>
-						<td><?php echo jck_get_status_badge(  $product->status ); ?></td>
-						<td><?php echo jck_get_status_badge( $product->catalog_visibility ); ?></td>
+						<td><?php echo iconic_get_status_badge(  $product->status ); ?></td>
+						<td><?php echo iconic_get_status_badge( $product->catalog_visibility ); ?></td>
 						<td>
 							<a href="/edit-product.php?id=<?php echo $product->id; ?>" class="btn btn-default">Edit</a>
-							<a href="<?php echo jck_get_current_url( array(
+							<a href="<?php echo iconic_get_current_url( array(
 								'action' => 'delete_collection_item',
 								'type' => 'products',
 								'id' => $product->id,
@@ -43,7 +43,7 @@
 			</tbody>
 		</table>
 
-		<?php jck_display_pagination_links( 'products' ); ?>
+		<?php iconic_display_pagination_links( 'products' ); ?>
 	<?php } else { ?>
 		<div class="alert alert-warning" role="alert">
 			<p>Sorry, no products were found.</p>

@@ -5,7 +5,7 @@
  *
  * @return string
  */
-function jck_get_app_url() {
+function iconic_get_app_url() {
 	return 'https://iconic-app.local';
 }
 
@@ -16,7 +16,7 @@ function jck_get_app_url() {
  *
  * @return string
  */
-function jck_add_trailing_slash( $string ) {
+function iconic_add_trailing_slash( $string ) {
 	$string = rtrim( $string, '/\\' );
 
 	return $string . '/';
@@ -29,8 +29,8 @@ function jck_add_trailing_slash( $string ) {
  *
  * @return string
  */
-function jck_get_current_url( $args = array() ) {
-	$app_url = jck_get_app_url() . $_SERVER['PHP_SELF'];
+function iconic_get_current_url( $args = array() ) {
+	$app_url = iconic_get_app_url() . $_SERVER['PHP_SELF'];
 
 	parse_str( $_SERVER['QUERY_STRING'], $current_args );
 
@@ -57,12 +57,12 @@ function jck_get_current_url( $args = array() ) {
  *
  * @return array
  */
-function jck_get_nav_items() {
+function iconic_get_nav_items() {
 	$nav_items = array(
 		'/' => 'Dashboard',
 	);
 
-	$store_url = jck_get_store_url();
+	$store_url = iconic_get_store_url();
 
 	if ( $store_url ) {
 		$nav_items['/orders.php']    = 'Orders';
@@ -78,7 +78,7 @@ function jck_get_nav_items() {
  *
  * @return string
  */
-function jck_get_authorize_path() {
+function iconic_get_authorize_path() {
 	return 'wc-auth/v1/authorize';
 }
 
@@ -89,7 +89,7 @@ function jck_get_authorize_path() {
  *
  * @return bool
  */
-function jck_url_exists( $url ) {
+function iconic_url_exists( $url ) {
 	//check, if a valid url is provided
 	if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
 		return false;
@@ -125,11 +125,11 @@ function jck_url_exists( $url ) {
  *
  * @return string
  */
-function jck_add_auth_params( $url ) {
+function iconic_add_auth_params( $url ) {
 	$params = array(
 		'app_name'     => 'WooCommerce App',
 		'scope'        => 'read_write', // 'read', 'write', 'read_write'
-		'user_id'      => jck_get_user_id(), // Local user ID
+		'user_id'      => iconic_get_user_id(), // Local user ID
 		'return_url'   => 'https://iconic-app.local/',
 		'callback_url' => 'https://iconic-app.local/callback.php', // Must be https
 	);
@@ -138,14 +138,14 @@ function jck_add_auth_params( $url ) {
 	 * For testing purposes, you need to add a filter to the woo store
 	 * to allow posting to your localhost (for the callback_url):
 	 *
-	 * function jck_http_request( $r, $url ) {
+	 * function iconic_http_request( $r, $url ) {
 	 *     $r['reject_unsafe_urls'] = false; // Allow unsafe callback_url (localhost)
 	 *     $r['sslverify'] = false; // Allow self-signed cert
 	 *
 	 *     return $r;
 	 * }
 	 *
-	 * add_filter( 'http_request_args', 'jck_http_request', 10, 2 );
+	 * add_filter( 'http_request_args', 'iconic_http_request', 10, 2 );
 	 *
 	 * On top of this, if you're using local by flywheel, you may need to add a line to your hosts file:
 	 *
@@ -171,8 +171,8 @@ function jck_add_auth_params( $url ) {
  * @return string
  */
 function get_next_prev_link( $type, $next_prev = 'next' ) {
-	$current_page     = jck_get_current_page();
-	$current_per_page = jck_get_current_per_page();
+	$current_page     = iconic_get_current_page();
+	$current_per_page = iconic_get_current_per_page();
 
 	if ( $next_prev === 'prev' && $current_page === 1 ) {
 		return '';
@@ -184,7 +184,7 @@ function get_next_prev_link( $type, $next_prev = 'next' ) {
 		return '';
 	}
 
-	$orders = jck_api_get_collection( $type, array(
+	$orders = iconic_api_get_collection( $type, array(
 		'page'     => $page,
 		'per_page' => $current_per_page,
 	) );
@@ -196,7 +196,7 @@ function get_next_prev_link( $type, $next_prev = 'next' ) {
 	$label = $next_prev === 'next' ? sprintf( 'Page %d &rarr;', $page ) : sprintf( '&larr; Page %d', $page );
 	$pull  = $next_prev === 'next' ? 'pull-right' : 'pull-left';
 
-	$url = jck_get_current_url( array(
+	$url = iconic_get_current_url( array(
 		'page' => $page === 1 ? null : $page,
 	) );
 
@@ -215,7 +215,7 @@ function get_next_prev_link( $type, $next_prev = 'next' ) {
  *
  * @param string $type
  */
-function jck_display_pagination_links( $type ) {
+function iconic_display_pagination_links( $type ) {
 	if ( empty ( $type ) ) {
 		return;
 	}
@@ -235,7 +235,7 @@ function jck_display_pagination_links( $type ) {
  *
  * @return int
  */
-function jck_get_current_page() {
+function iconic_get_current_page() {
 	return isset( $_GET['page'] ) ? (int) $_GET['page'] : 1;
 }
 
@@ -244,7 +244,7 @@ function jck_get_current_page() {
  *
  * @return int
  */
-function jck_get_current_per_page() {
+function iconic_get_current_per_page() {
 	return isset( $_GET['per_page'] ) ? (int) $_GET['per_page'] : 15;
 }
 
@@ -255,7 +255,7 @@ function jck_get_current_per_page() {
  *
  * @return bool|string
  */
-function jck_get_status_badge( $status = '' ) {
+function iconic_get_status_badge( $status = '' ) {
 	if ( empty ( $status ) ) {
 		return false;
 	}
@@ -281,7 +281,7 @@ function jck_get_status_badge( $status = '' ) {
  *
  * @return array
  */
-function jck_get_edit_customer_fields() {
+function iconic_get_edit_customer_fields() {
 	return array(
 		'email-address' => array(
 			'label'       => 'Email Address',
@@ -311,7 +311,7 @@ function jck_get_edit_customer_fields() {
  *
  * @return array
  */
-function jck_get_edit_product_fields( $product_type = 'simple' ) {
+function iconic_get_edit_product_fields( $product_type = 'simple' ) {
 	$fields = array(
 		'name' => array(
 			'label'       => 'Name',

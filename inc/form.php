@@ -7,7 +7,7 @@
  *
  * @return string
  */
-function jck_generate_form_token( $form ) {
+function iconic_generate_form_token( $form ) {
 	// generate a token from an unique value
 	$token = md5( uniqid( microtime(), true ) );
 
@@ -24,7 +24,7 @@ function jck_generate_form_token( $form ) {
  *
  * @return bool
  */
-function jck_verify_form_token( $form ) {
+function iconic_verify_form_token( $form ) {
 	// check if a session is started and a token is transmitted, if not return an error
 	if ( ! isset( $_SESSION[ $form . '_token' ] ) ) {
 		return false;
